@@ -3,3 +3,12 @@ Make sure hosts, ips and DNS are setup properly (Chef Server and Chef nodes)
 knife bootstrap <node ip> -N <dev01-1.novalocal> -U xxxx -P xxxxxxx
 Run the above command from chef-repo directory
 knife client list (To check the client list)
+
+Note: .chef directory
+C:\chef-repo\.chef (master)
+λ ls -ltr
+total 10
+-rw-r--r-- 1 Sasi.Chand 1049089 1678 Dec  4 16:33 chefadmin.pem
+drwxr-xr-x 1 Sasi.Chand 1049089    0 Dec  4 16:38 trusted_certs/
+-rw-r--r-- 1 Sasi.Chand 1049089  339 Dec  4 16:41 knife.rb
+-rw-r--r-- 1 Sasi.Chand 1049089   36 Dec  5 09:58 chef_guid
