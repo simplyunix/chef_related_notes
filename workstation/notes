@@ -1,0 +1,78 @@
+After the download, install Chef Workstation on CentOS 8 / RHEL 8
+yum localinstall chef-workstation
+
+# chef --version
+Chef Workstation version: 0.12.20
+Chef Infra Client version: 15.5.16
+Chef InSpec version: 4.18.39
+Chef CLI version: 2.0.0
+Test Kitchen version: 2.3.4
+Cookstyle version: 5.13.7
+
+# knife --version
+Chef Infra Client: 15.5.16
+
+Configure Knife and Chef Workstation on CentOS 8 / RHEL 8
+Configure Knife environment ( On Workstation Machine)
+
+# chef generate repo chef-repo
+# cd chef-repo
+
+Configure Git
+# git config --global user.name gitusername
+# git config --global user.email useremail@example.com
+
+Add the .chef directory to the .gitignore file
+You need to tell Git to ignore tracking of all files in .chef directory
+# echo ".chef" > .gitignore
+
+# git add .
+# git commit -m "initial commit"
+
+Configure Knife
+# cd chef-repo
+# mkdir .chef
+# cd .chef
+
+The .chef directory should contain two files:
+
+Your knife configuration file, knife.rb
+Your RSA private key
+Download your RSA Private key from the Chef Server – This was generated during the installation of Chef server
+
+# scp chef-server:/home/chefadmin.pem .
+
+# vi knife.rb
+current_dir = File.dirname(__FILE__)
+log_level :info
+log_location STDOUT
+node_name 'chefadmin'
+client_key "#{current_dir}/chefadmin.pem"
+validation_client_name 'eyetnz'
+validation_key "#{current_dir}/eyetnz-validator.pem"
+chef_server_url "https://chef.server.1.novalocal/organizations/eyetnz"
+cookbook_path ["#{current_dir}/../cookbooks"]
+
+mycompany should match the name of your Organization as created on the Chef server
+chef-server is the domain name of your Chef Server – resolvable on the Workstation machine
+chefadmin should be the username that was created on the chef server
+You can also use Organization Validator, but first download validator Private Key.
+
+$ scp chef-server:/home/mycompany-validator.pem .
+
+Fetch the SSL certificate from your Chef server.
+$ knife ssl fetch
+Validate the downloaded SSL certificate
+
+$ knife ssl check
+Connecting to host chef-server:443
+Successfully verified certificates from `chef-server'
+
+$ file trusted_certs/chef-server.crt
+trusted_certs/chef-server.crt: PEM certificate
+
+Confirm that knife.rb is set up correctly by running the client list:
+
+$ knife client list
+
+NEXT STEPS: WRITE YOUR FIRST COOKBOOK, CREATE A RECIPE, TEST IT IN THE KITCHEN AND UPLOAD THE COOKBOOK TO THE CHEF SERVER
