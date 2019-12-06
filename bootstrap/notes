@@ -12,3 +12,69 @@ total 10
 drwxr-xr-x 1 Sasi.Chand 1049089    0 Dec  4 16:38 trusted_certs/
 -rw-r--r-- 1 Sasi.Chand 1049089  339 Dec  4 16:41 knife.rb
 -rw-r--r-- 1 Sasi.Chand 1049089   36 Dec  5 09:58 chef_guid
+
+-----------------------------------------------------------------------
+
+Bootstrapping a Node
+The knife bootstrap is the command you use to bootstrap a node. When using this command, you specify arguments depending on how you 
+would normally connect to your node over SSH.
+
+You can connect to the Node via:
+
+Key-based authentication
+Password authentication
+Key-based authentication is typically recommended over password authentication because it is more secure, but you can bootstrap your 
+node using either method. In either method, the --node-name argument uniquely identifies the node with the Chef server and its value 
+can be whatever you want.
+
+General options used with knife bootstrap command
+
+--ssh-user
+--sudo
+--node-name
+--run-list
+Options specific to key-based authentication
+
+--identity-file
+Options specific to password authentication
+
+--ssh-password
+--use-sudo-password
+
+Bootstrap a Node using Password authentication
+The command syntax is:
+
+$ knife bootstrap ADDRESS --ssh-user USER --sudo --node-name nodename --run-list 'recipe[recipe-name]'
+Separate multiple recipes with a comma
+
+'recipe[nginx],recipe[php-fpm],recipe[haproxy]'
+For our example case, we’ll use:
+
+$ knife bootstrap 192.168.18.9 -U root --sudo -P 'password' -N  centos-01 -r 'recipe[install_apache]'
+Replace:
+
+ADDRESS with your remote node’s external address,
+USER with your username
+centos-01 with your Node name
+install_apache with cookbook name
+To use the root user
+
+$ knife bootstrap 192.168.18.11 -N <FQDN of the node> -U root  -P 'password' \
+-r 'recipe[install_apache]'
+If you get an error message like ERROR: Net::SSH::HostKeyMismatch: fingerprint ..does not match for "IP", 
+you may need to remove the offending key from your ~/.ssh/configusing:
+
+$ ssh-keygen -R IPADDRESS
+Or bootstrap with the --no-host-key-verify option (not recommended since less secure)
+
+$ knife bootstrap IPADDRESS --no-host-key-verify <OPTIONS>
+To Bootstrap using Key authentication
+
+$ knife bootstrap 192.168.18.9 -U root --sudo  --identity-file ~/.ssh/private_key \
+-N  centos-01 -r 'recipe[install_apache]'
+Knife Node Bootstrap will:
+
+Login to node
+Install chef-client
+Configure chef-client
+Run chef-client
