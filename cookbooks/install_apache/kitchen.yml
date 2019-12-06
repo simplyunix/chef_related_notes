@@ -1,0 +1,40 @@
+---
+driver:
+  name: openstack
+  openstack_auth_url: 'http://192.168.0.100:5000'
+  openstack_project: demo
+  openstack_project_name: demo
+  openstack_domain_id: default
+  openstack_username: demo
+  openstack_api_key: sushi100
+  floating_ip_pool: external
+  public_ip_order:  1
+  image_ref: centos8.final
+  flavor_ref: m1.medium
+  openstack_network_name: private
+  disable_ssl_validation: true
+  require_chef_omnibus: true
+  image_ref: centos8.final.min
+  flavor_ref: m1.medium
+  write_timeout: 60
+  connect_timeout: 30
+
+provisioner:
+  name: chef_zero
+  deprecations_as_errors: true
+  chef_license: accept-no-persist
+
+transport:
+  ssh_key: /Users/sasi.chand/.ssh/id_rsa #/path/to/id_rsa. Path to private key that matches the above openstack key_name
+  connection_timeout: 10
+  connection_retries: 5
+  username: cloud-user
+
+platforms:
+  - name: centos-8
+    username: cloud-user
+
+suites:
+- name: default
+  run_list:
+    - recipe[install_apache::default]

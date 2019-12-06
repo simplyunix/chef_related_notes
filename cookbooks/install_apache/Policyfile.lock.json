@@ -1,0 +1,51 @@
+{
+  "revision_id": "5562702326504878fe86d629c456ffdeb5e4ec95c8c5329f1eaef4f3a4cad863",
+  "name": "install_apache",
+  "run_list": [
+    "recipe[install_apache::default]"
+  ],
+  "included_policy_locks": [
+
+  ],
+  "cookbook_locks": {
+    "install_apache": {
+      "version": "0.1.0",
+      "identifier": "6567f07bf010afa7a1fc06ddbae6cef4d63533be",
+      "dotted_decimal_identifier": "28543255216918703.47184424929704678.227550961152958",
+      "source": ".",
+      "cache_key": null,
+      "scm_info": {
+        "scm": "git",
+        "remote": null,
+        "revision": "b2df05cfa6c7730adab13d46067bf108da114912",
+        "working_tree_clean": true,
+        "published": false,
+        "synchronized_remote_branches": [
+
+        ]
+      },
+      "source_options": {
+        "path": "."
+      }
+    }
+  },
+  "default_attributes": {
+
+  },
+  "override_attributes": {
+
+  },
+  "solution_dependencies": {
+    "Policyfile": [
+      [
+        "install_apache",
+        ">= 0.0.0"
+      ]
+    ],
+    "dependencies": {
+      "install_apache (0.1.0)": [
+
+      ]
+    }
+  }
+}
