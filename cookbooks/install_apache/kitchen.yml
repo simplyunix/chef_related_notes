@@ -1,12 +1,12 @@
 ---
 driver:
   name: openstack
-  openstack_auth_url: 'http://192.168.0.100:5000'
+  openstack_auth_url: 'http://<IP Address>:5000'
   openstack_project: demo
   openstack_project_name: demo
   openstack_domain_id: default
   openstack_username: demo
-  openstack_api_key: sushi100
+  openstack_api_key: <Your tenant password>
   floating_ip_pool: external
   public_ip_order:  1
   image_ref: centos8.final
@@ -25,7 +25,7 @@ provisioner:
   chef_license: accept-no-persist
 
 transport:
-  ssh_key: /Users/sasi.chand/.ssh/id_rsa #/path/to/id_rsa. Path to private key that matches the above openstack key_name
+  ssh_key: /Users/<my.username>/.ssh/id_rsa #/path/to/id_rsa. Path to private key that matches the above openstack key_name
   connection_timeout: 10
   connection_retries: 5
   username: cloud-user
