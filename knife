@@ -1,0 +1,47 @@
+# knife client list
+# knife node list
+dev01-1.novalocal
+# knife node show dev01-1.novalocal
+Node Name:   dev01-1.novalocal
+Environment: _default
+FQDN:        dev01-1.novalocal
+IP:          10.1.0.20
+Run List:
+Roles:
+Recipes:
+Platform:    centos 8.0.1905
+Tags:
+
+Update your node’s configuration
+The command knife ssh enables you to update your node’s configuration when your cookbook changes. To update your node using password 
+authentication with attributes
+
+knife ssh 'name:nodename' 'sudo chef-client' --ssh-user USER --ssh-password 'PASSWORD' --attribute ipaddress
+Delete Node data
+Chef makes a distinction between the nodes that are being managed and the clients that are authorized to make API calls to the Chef 
+server. Delete Node data by running:
+
+knife node delete nodename --yes
+knife client delete nodename --yes
+The knife node delete removes the node’s metadata from the Chef server and knife client delete  deletes the entry (including the public
+part of the RSA key pair) from the Chef server’s API client list.
+
+Delete Chef Cookbook/roles and RSA private key
+To delete your cookbook from the Chef server
+
+knife cookbook delete cookbookname --all --yes
+If you omit the --all argument, you’ll be prompted to select which version to delete
+
+To delete the role from the Chef server
+
+$ knife role delete myrole --yes
+Delete the RSA private key from your node
+
+During the bootstrap process, an RSA private key is generated on your node to enable your node to make API calls to the Chef server.
+This key is saved to /etc/chef/client.pem on Linux systems
+
+If you plan to bootstrap your node a second time, for example, to practice the process, you’ll need to log in to your node and delete 
+the RSA private key file, like this
+
+$ sudo rm /etc/chef/client.pem
+Hope this article was helpful for guys new to Knife and Chef Automation Engine. Stay tuned for more Chef Articles.
