@@ -1,0 +1,4 @@
+Stand up a server (centos 8)
+Make sure hosts, ips and DNS are setup properly (Chef Server and Chef nodes)
+knife bootstrap <node ip> -N <dev01-1.novalocal> -U xxxx -P xxxxxxx
+Run the above command from chef-repo directory
