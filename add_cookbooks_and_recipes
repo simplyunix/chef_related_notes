@@ -1,0 +1,20 @@
+# cd cookbooks
+
+# knife upload cookbooks\install_apache\
+# knife status --run-list
+# knife node run_list add dev01-1.novalocal 'recipe[install_apache::default]'
+# knife node show dev01-1.novalocal
+
+
+# knife node show dev01-1.novalocal
+Node Name:   dev01-1.novalocal
+Environment: _default
+FQDN:        dev01-1.novalocal
+IP:          10.1.0.20
+Run List:    recipe[install_apache::default]
+Roles:
+Recipes:
+Platform:    centos 8.0.1905
+Tags:
+
+https://docs.chef.io/run_lists.html
