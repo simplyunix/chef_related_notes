@@ -1,0 +1,50 @@
+Create a directory "environments" in the chef-repo
+# cd chef-repo
+# mkdir environments
+# knife environment list
+_default (This is the default environment and can not be deleted)
+
+# knife environment edit development
+
+{
+  "name": "development",
+  "description": "The master development branch",
+  "cookbook_versions": {
+    "apache": "<= 0.1.0"
+  },
+  "json_class": "Chef::Environment",
+  "chef_type": "environment",
+  "default_attributes": {
+
+  },
+  "override_attributes": {
+    "apache": {
+      "listen": [
+        "80",
+        "443"
+      ]
+    }
+  }
+}
+
+Upload the environment to the chef server
+# knife environment from file development.rb
+
+Edit the nodes attributes to set the correct environment
+# knife node edit dev01-1.novalocal
+
+{
+  "name": "dev01-1.novalocal",
+  "chef_environment": "development",
+  "normal": {
+    "tags": [
+
+    ]
+  },
+  "policy_name": null,
+  "policy_group": null,
+  "run_list": [
+  "role[web_servers]"
+]
+
+}
