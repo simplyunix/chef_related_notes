@@ -1,0 +1,52 @@
+Create a subdirectory roles in the chef-repos (Parent dir)
+# mkdir roles
+# cd roles
+
+#  knife role edit web_servers
+OR
+# vi webservers.rb
+
+CUT here ----
+{
+  "name": "web_servers",
+  "description": "The base role for systems that serve HTTP traffic",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+    "apache2": {
+      "listen_ports": [
+        "80",
+        "443"
+      ]
+    }
+  },
+  "override_attributes": {
+    "apache2": {
+      "max_children": "50"
+    }
+  },
+  "chef_type": "role",
+  "run_list": [
+
+  ],
+  "env_run_lists": {
+    "development": [
+      "recipe[install_apache::development]"
+    ],
+    "testing": [
+      "recipe[install_apache::testing]"
+    ],
+    "production": [
+      "recipe[install_apache::production]"
+    ]
+  }
+}
+
+
+# END
+
+1. Uploade the role to the Chef servers
+# knife upload roles
+2. Add the role to a node
+# knife node run_list set dev01-1.novalocal "role[web_servers]"
+
+
