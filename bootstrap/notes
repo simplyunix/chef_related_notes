@@ -78,3 +78,6 @@ Login to node
 Install chef-client
 Configure chef-client
 Run chef-client
+
+knife bootstrap 192.168.0.129 -U root --sudo --identity-file ~/.ssh/private_key -N dev01-2.novalocal -r 'recipe[install_apache]'
+knife bootstrap 192.168.0.129 -N dev01-2.novalocal -U xx -P xxxxx
